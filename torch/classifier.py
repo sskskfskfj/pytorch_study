@@ -24,6 +24,13 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,shuffle=
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
 
+def imshow(img):
+    img = img / 2 + 0.5  # unnormalize
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.show()
+
+
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
@@ -57,8 +64,6 @@ def predict(model_path):
     outputs = net(images)
     _, predicted = torch.max(outputs, 1)
     print('Predicted: ', ' '.join(f'{classes[predicted[j]]:5s}' for j in range(4)))
-    # TODO 이거 마저 마무리
-
 
 if __name__ == "__main__":
     net = Net()
